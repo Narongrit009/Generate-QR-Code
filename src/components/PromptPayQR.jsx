@@ -72,7 +72,7 @@ function PromptPayQR() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-100 to-blue-200 flex items-center justify-center p-6">
+    <div className="fixed inset-0 bg-gradient-to-br from-indigo-200 via-sky-300 to-blue-500 animate-gradient-x flex items-center justify-center p-6 overflow-hidden">
       <div className="bg-white shadow-2xl rounded-3xl p-8 w-full max-w-lg border border-blue-100">
         <h2 className="text-3xl font-bold text-center text-blue-700 mb-6 tracking-wide drop-shadow-sm">
           สร้าง QR พร้อมเพย์
@@ -95,29 +95,48 @@ function PromptPayQR() {
           />
           <button
             onClick={handleGenerate}
-            className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-4 py-3 rounded-xl w-full font-semibold shadow-md transform hover:scale-105 transition duration-300"
+            className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-4 py-3 rounded-xl w-full font-semibold shadow-lg transform hover:scale-105 transition duration-300"
           >
             สร้าง QR
           </button>
         </div>
 
         {qrCodeUrl && (
-          <div className="mt-8 text-center animate-fade-in">
-            <img
-              src={qrCodeUrl}
-              alt="PromptPay QR Code"
-              className="mx-auto w-64 h-64 shadow-xl rounded-2xl border border-blue-300"
-            />
-            <p className="text-sm text-gray-700 mt-2">
-              สแกนด้วยแอปธนาคารเพื่อชำระเงิน
-            </p>
-          </div>
-        )}
+          <div className="mt-8 flex justify-center">
+            <div className="bg-white rounded-xl shadow-2xl w-80 overflow-hidden border border-gray-200">
+              {/* แถบหัวบน */}
+              <div className="bg-blue-900 p-2 flex items-center justify-center">
+                <img
+                  src="/thai-qr-logo.png"
+                  alt="Thai QR Payment"
+                  className="h-12"
+                />
+              </div>
 
-        {payloadLog && (
-          <div className="mt-6 bg-white border border-gray-200 rounded-xl p-4 text-xs font-mono text-gray-800 break-words">
-            <strong>📦 QR Payload:</strong>
-            <div className="mt-1">{payloadLog}</div>
+              {/* โลโก้ PromptPay ด้านบน QR */}
+              <div className="bg-white py-2 flex justify-center">
+                <img
+                  src="/promptpay-logo.png"
+                  alt="PromptPay Logo"
+                  className="h-8"
+                />
+              </div>
+
+              {/* QR Code + Overlay Icon */}
+              <div className="relative w-64 h-64 mx-auto my-4">
+                <img src={qrCodeUrl} alt="QR" className="w-full h-full" />
+                <img
+                  src="/icon-pp.png"
+                  alt="PromptPay Logo Center"
+                  className="w-24 h-24 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 "
+                />
+              </div>
+
+              {/* ข้อความด้านล่าง */}
+              <p className="text-sm text-center text-gray-700 mb-4 px-4">
+                สแกนด้วยแอปธนาคารเพื่อชำระเงิน
+              </p>
+            </div>
           </div>
         )}
       </div>
